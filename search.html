@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Filter Search</title>
+    <link rel="shortcut icon"
+        href="https://www.shutterstock.com/image-vector/search-icon-vector-illustration-magnifying-260nw-2497142935.jpg"
+        type="image/x-icon">
+    <style>
+        body {
+            background: linear-gradient(235deg, #e6f2f2, #b1d0d2, #e6f2f2);
+            height: 93vh;
+
+        }
+
+        .search {
+            height: 40px;
+            width: 40%;
+            border-radius: 12px;
+            border: none;
+            background: #fff;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            margin: 80px auto 20px;
+            display: flex;
+            align-items: center;
+            transition: 0.3s ease;
+        }
+
+        .search:hover {
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        svg {
+            margin-left: 10px;
+        }
+
+        #search {
+            width: 89%;
+            margin: 10px 5px 5px 10px;
+            outline: none;
+            border: none;
+            background-color: transparent;
+            font-size: 17px;
+            font-weight: 500;
+            color: #000;
+        }
+
+
+
+        #view {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 40px;
+            justify-content: space-around;
+            color: black;
+            font-size: 22px;
+            font-weight: 600;
+            margin-top: 70px;
+        }
+
+        #view p {
+            margin: 8px;
+            padding: 10px 20px;
+            background-color: #f0f8ff;
+            border-radius: 12px;
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15);
+            flex: 0 0 auto;
+            transition: all 0.25s ease;
+
+            animation: fadeIn 0.4s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+
+        #view p:hover {
+            transform: translateY(-5px) scale(1.03);
+            background: #e9f6f7;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        .title {
+            text-align: center;
+            color: #264653;
+            font-size: 28px;
+            font-weight: 700;
+            margin-top: 40px;
+            letter-spacing: 1px;
+        }
+
+        .no-match {
+            color: #e63946;
+            background: #fff4f4;
+            border: 1px solid #f5c2c2;
+            border-radius: 8px;
+            padding: 10px 20px;
+            font-size: 18px;
+            font-weight: 600;
+            text-align: center;
+        }
+
+        .title {
+            text-align: center;
+            margin-top: 40px;
+            margin-bottom: 20px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 28px;
+            font-weight: 600;
+            color: #264653;
+            letter-spacing: 0.5px;
+            animation: fadeBounce 1.8s ease-in-out forwards;
+            opacity: 0;
+        }
+
+
+        .brand {
+            font-size: 32px;
+            font-weight: 700;
+            color: #1b4965;
+            animation: glow 2s ease-in-out infinite alternate;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.15);
+        }
+
+        .heart {
+            display: inline-block;
+            animation: pulse 1.5s infinite ease-in-out, colorShift 3s infinite ease-in-out;
+            transform-origin: center;
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                transform: scale(1.7);
+                opacity: 0.9;
+            }
+
+            50% {
+                transform: scale(1.3);
+                opacity: 1;
+            }
+        }
+
+        @keyframes colorShift {
+            0% {
+                color: #eb86b8;
+            }
+
+            50% {
+                color: #e92e8c;
+            }
+
+            100% {
+                color: #f67cb9;
+            }
+        }
+
+        @keyframes glow {
+            from {
+                text-shadow: 0 0 5px #a2d2ff, 0 0 10px #a2d2ff;
+            }
+
+            to {
+                text-shadow: 0 0 15px #89c2d9, 0 0 25px #89c2d9;
+            }
+        }
+
+        @keyframes fadeBounce {
+            0% {
+                opacity: 0;
+                transform: translateY(-15px);
+            }
+
+            50% {
+                opacity: 1;
+                transform: translateY(5px);
+            }
+
+            70% {
+                transform: translateY(-5px);
+            }
+
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+
+        @media (max-width: 900px) {
+            .search {
+                width: 60%;
+                margin: 50px auto 1px;
+            }
+
+            #view p {
+                flex: 0 0 30%;
+                font-size: 20px;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .search {
+                width: 80%;
+                margin: 40px auto 1px;
+            }
+
+            #view {
+                justify-content: center;
+                gap: 10px;
+            }
+
+            #view p {
+                flex: 0 0 90%;
+                text-align: center;
+                font-size: 18px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <h2 class="title"><span class="heart">💕</span> <span class="brand">Akenne’s Search Your Goods 🛍️</span></h2>
+
+    <div class="search">
+        <svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 -960 960 960" width="20px" fill="#666666">
+            <path
+                d="M784-120 532-372q-30 24-69 38t-83 14q-109 0-184.5-75.5T120-580q0-109 75.5-184.5T380-840q109 0 184.5 75.5T640-580q0 44-14 83t-38 69l252 252-56 56ZM380-400q75 0 127.5-52.5T560-580q0-75-52.5-127.5T380-760q-75 0-127.5 52.5T200-580q0 75 52.5 127.5T380-400Z" />
+        </svg>
+        <input type="text" oninput="find()" id="search" placeholder="Search goods.....">
+    </div>
+    <div id="view"></div>
+</body>
+
+</html>
+<script>
+    let goods = ['Akenne', 'Bag', 'Cloth', 'Sandal', 'Wine', 'Soda', 'Champagne', 'Cat', 'Shoe', 'Book', 'Tree',
+        'City', 'Bucket', 'G-wagon', 'Fork', 'Stuff', 'Plank', 'Stone', 'Cement', 'Paper', 'Gum', 'Rock', 'Needle',
+        'Iron', 'Socks', 'Drum', 'Bell', 'Brabus-B', 'Mercerdes', 'Sup']
+    function showGoods(g) {
+        view.innerHTML = ''
+        g.forEach((item) => {
+            view.innerHTML += `<p> ${item}</p>`
+        });
+    }
+    showGoods(goods)
+
+
+    function find() {
+        let searchValue = document.getElementById("search").value.trim().toLowerCase().replaceAll(' ', '');
+        let filteredGoods = goods.filter((item) =>
+            item.trim().toLowerCase().includes(searchValue)
+        );
+
+        showGoods(filteredGoods);
+
+        if (filteredGoods.length === 0) {
+            view.innerHTML = '<p class="no-match">No matched words found</p>';
+        }
+        else {
+            showGoods(filteredGoods)
+        }
+    }
+
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- <!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <input type="text" oninput="search()">
+
+    <div id="preview">
+
+
+    </div>
+
+</body>
+
+</html>
+<script>
+
+
+    let products = ['rice', 'beans', 'onions', 'bread']
+
+    // let variable = 'hello'
+    // console.log(variable.split(''));
+
+
+    function displayProducts(p) {
+        preview.innerHTML = ''
+        p.forEach((product) => {
+            preview.innerHTML += `<p>  ${product} </p> `
+        })
+    }
+
+    displayProducts(products) -->
+
+
+<!-- // function search() {
+    //     let inputValue = document.querySelector('input').value.trim().replaceAll(' ', '')   // 'rice' 
+
+    //     let filteredProducts = products.filter((product) => {
+    //         return inputValue.split('').every((letter) => product.includes(letter))
+    //     })
+
+    //     console.log(filteredProducts);
+
+
+    //     if (filteredProducts.length === 0) {
+    //         preview.innerHTML = 'product does not exist'
+    //     } else {
+    //         displayProducts(filteredProducts)
+    //     }
+
+    // } -->
+
+
+
+
+
+
+<!-- </script> -->
+
+
+
+<!-- <body>
+    <div class="search">
+        <input type="text" oninput="find()" id="search" placeholder="Search goods.....">
+    </div>
+    <div id="view"></div>
+</body>
+
+</html>
+<script>
+    let goods = ['Shoe', 'Bag', 'Cloth', 'Sandal', 'Wine', 'Soda', 'Champagne', 'Cat', 'Table', 'Book', 'Tree', 'City']
+    function showGoods(g) {
+        view.innerHTML = ''
+        g.forEach((item) => {
+            view.innerHTML += `<p> ${item}</p>`
+        });
+
+    }
+    showGoods(goods)
+
+
+    function find() {
+        let searchValue = document.getElementById("search").value.trim().toLowerCase().replaceAll(' ', '');
+        let filteredGoods = goods.filter((item) =>
+            item.trim().toLowerCase().includes(searchValue)
+        );
+
+        showGoods(filteredGoods);
+
+        if (filteredGoods.length === 0) {
+            view.innerHTML = '<p style="color:red;">No matched words found</p>';
+        }
+        else {
+            showGoods(filteredGoods)
+        }
+    }
+    
+</script> -->
